@@ -1,0 +1,683 @@
+<html>
+
+<head>
+<title>Tic Tac Toe</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&effect=outline">
+<link rel="icon" type="image/x-icon" href="cars/monty.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+margin: 0px; 
+}
+
+
+
+.toCenter {display: flex; align-items: center; justify-content: space-around;}
+
+#container {height: 100%; width: 100%; flex-direction: column; background-image: url(photo/bg.jpg);}
+#con {width: 100%;}
+#com {width: 100%;}
+#table {position: absolute;}
+.box {height: 100%; width: auto; cursor: pointer;}
+
+
+
+
+
+#toBalance {width: 160px; height: 55px;}
+#con3 {height: 55px;}
+#show {
+width: 0px; height: 50px;
+overflow: hidden; white-space : nowrap;
+border-radius: 100px; box-shadow: 0px 4px 0px black;
+background-image: linear-gradient(#164B60, #3AA6B9);
+display: none; justify-content: center; align-items: center;
+font-size: 20px; font-family: monospace, arial; color: white;
+animation: showWinner 3s ease-in-out;
+}
+@keyframes showWinner {
+  30% {width: 160px;}
+  70% {width: 160px;}
+}
+#com{height: 30%;}
+.con4 {height: 50%; width: 10%; min-width: 100px; min-height: 150px;}
+.con5 {height: 100%; width: 27%; min-width: 100px; min-height: 150px;}
+.player {
+padding: 20px 0px; box-sizing: border-box;
+height: 80%; width: 100%; box-shadow: 0px 0px 8px black; border-radius: 30px; 
+background: linear-gradient(#73777B, #A1A9A9, #73777B);
+display: flex; flex-direction: column; justify-content: space-around; align-items: center;
+}
+.icon {width: 40%;}
+.name {font-family: Courier, arial; font-size: 20px; font-weight: bold;}
+.score {font-family: monospace, verdana; font-size: 20px;}
+.turn {
+width: 100%; height: 20%; color: #0A6EBD; white-space : nowrap;
+display: flex; justify-content: center; align-items: end;
+font-family: Lucida Sans, verdana; font-weight: bold; font-style: italic; font-size: 0px;
+}
+@keyframes showTurn {
+  0% {font-size: 0px;}
+  100% {font-size: 20px;}
+}
+@keyframes hideTurn {
+  0% {font-size: 20px;}
+  100% {font-size: 0px;}
+}
+
+
+
+@media only screen and (orientation: landscape) {
+#com {display: none;}
+}
+@media only screen and (orientation: Portrait) {
+.con4, #toBalance {display: none;}
+}
+
+
+</style>
+
+</head>
+
+<body>
+
+
+
+<div id="container" class="toCenter">
+
+	<div id="con3">
+		<div id="show" class="font-effect-outline"></div>
+	</div>
+	
+	<div id="con" class="toCenter">
+	
+		<div class="con4">
+			<div class="player">
+				<img src="photo/cross.png" class="icon">
+				<div class="name">Player 1</div>
+				<div class="score">0 Win</div>
+			</div>
+			<div class="turn">Your Turn</div>
+		</div>
+		
+		<div id="con2">
+			<table id="table">
+				<tr>
+					<td><div class="box" onclick="given(0)"></div></td>
+					<td><div class="box" onclick="given(1)"></div></td>
+					<td><div class="box" onclick="given(2)"></div></td>
+				</tr>
+				<tr>
+					<td><div class="box" onclick="given(3)"></div></td>
+					<td><div class="box" onclick="given(4)"></div></td>
+					<td><div class="box" onclick="given(5)"></div></td>
+				</tr>
+				<tr>
+					<td><div class="box" onclick="given(6)"></div></td>
+					<td><div class="box" onclick="given(7)"></div></td>
+					<td><div class="box" onclick="given(8)"></div></td>
+				</tr>
+			</table>
+			<canvas id="canvas">Your browser does not support the canvas element.</canvas>
+		</div>
+		
+		<div class="con4">
+			<div class="player">
+				<img src="photo/circle.png" class="icon">
+				<div class="name">Computer</div>
+				<div class="score">0 Win</div>
+			</div>
+			<div class="turn">Thinking...</div>
+		</div>
+		
+	</div>
+
+	<div id="toBalance"></div>
+	
+	<div id="com" class="toCenter">
+	
+		<div class="con5">
+			<div class="player">
+				<img src="photo/cross.png" class="icon">
+				<div class="name">Player 1</div>
+				<div class="score">0 Win</div>
+			</div>
+			<div class="turn">Your Turn</div>
+		</div>
+		
+		<div class="con5">
+			<div class="player">
+				<img src="photo/circle.png" class="icon">
+				<div class="name">Computer</div>
+				<div class="score">0 Win</div>
+			</div>
+			<div class="turn">Thinking...</div>
+		</div>
+
+	</div>
+	
+</div>
+
+</body>
+</html>
+
+<script>
+
+canvas = document.getElementById("canvas");
+ctx = canvas.getContext("2d");
+
+name = document.getElementsByClassName("name");
+turn = document.getElementsByClassName("turn");
+score = document.getElementsByClassName("score");
+
+measureSize();
+
+
+
+function resizeCanvas() {
+    console.log( "devicePixelRatio: "+window.devicePixelRatio );
+    console.log( "canvas size: "+canvas.width+" x "+canvas.height );
+    console.log( "canvas style size: "+canvas.style.width+"px x "+canvas.style.height+"px" );
+
+    if ( fullscreen )
+    {
+        var windowWidth = window.innerWidth;
+        var windowHeight = window.innerHeight;
+        console.log( "window size: "+windowWidth+" x "+windowHeight );
+
+        canvas.width = Math.floor( windowWidth * window.devicePixelRatio );
+        canvas.height = Math.floor( windowHeight * window.devicePixelRatio );
+
+        canvas.style.width = windowWidth+"px";
+        canvas.style.height = windowHeight+"px";
+    }
+    else 
+    {
+        canvas.width = Math.floor( baseCanvasWidth * window.devicePixelRatio );
+        canvas.height = Math.floor( baseCanvasHeight * window.devicePixelRatio );
+
+        canvas.style.width = baseCanvasWidth+"px";
+        canvas.style.height = baseCanvasHeight+"px";
+    }
+
+    ctx.scale( window.devicePixelRatio , window.devicePixelRatio );
+
+    console.log( "new canvas size: "+canvas.width+" x "+canvas.height );
+    console.log( "new canvas style size: "+canvas.style.width+"px x "+canvas.style.height+"px" );
+}
+
+window.addEventListener("resize", handleResize);
+
+function handleResize () {
+	measureSize ();
+	reDecVar();
+	
+	for (var j = 0; j < 2; j++) {
+		for (var i = 0; i < keep[j].length; i++) {
+			reDraw(j, keep[j][i]);
+		}
+	}
+	reDrawBoard();
+	if (winner == 1 || winner == 2) reDrawLine();
+}
+function measureSize () {
+	var min;
+    var w = container.offsetWidth;
+    var h = container.offsetHeight;
+	if (w < h) {
+		if (h * 0.5 < w) min = h * 0.5;
+		else min = w * 0.65;
+	}
+	else min = h * 0.7;
+	
+    canvas.width = min;
+    canvas.height = min;
+	table.style.width = min;
+    table.style.height = min;
+	
+	wt = canvas.width; 
+	ht = canvas.height;
+	baseCanvasWidth = wt;
+	baseCanvasHeight = ht;
+	fullscreen = false;
+	resizeCanvas();
+}
+
+function decVar () {
+	p = 0;
+	winner = 0;
+	t0 = 1;		// p0
+	t1 = 15;	// p1
+	ta = 1000;	// auto
+	tb = 1;		// board & win line
+	tg = 200;	// gap between
+	tw = 10;	// win line
+	dm = 15;	// board & win line
+	da = 1;		// circle
+	dc = 3;		// cross
+	sb = 5;
+	sc = 10;
+	sw = 5;		// win
+	colorb = "#333";
+	colorc = "#1B6B93";
+	colorw = "#5D9C59";
+	colorl = "#7E1717";
+	canplay = new Array (0, 0);
+	drew = new Array ();
+	keep = new Array([], []);
+	scores = new Array (0, 0);
+	auto = new Array (0, 1);
+	
+	
+	x = new Array ();
+	y = new Array ();
+	lx1 = new Array ();
+	lx2 = new Array ();
+	ly1 = new Array ();
+	ly2 = new Array ();
+	reDecVar();
+}
+function reDecVar () {
+	w2 = wt/2;
+	w3 = wt/3;
+	w6 = wt/6;
+	r = 0.4 * w6;
+	b = 0.7 * w6;
+	
+	x[0] = x[3] = x[6] = -w3;
+	x[1] = x[4] = x[7] = 0;
+	x[2] = x[5] = x[8] = w3;
+
+	y[0] = y[1] = y[2] = -w3;
+	y[3] = y[4] = y[5] = 0;
+	y[6] = y[7] = y[8] = w3;
+
+	lx1[0] = lx1[1] = -w2;
+	lx2[0] = lx2[1] = w2;
+
+	ly1[0] = ly2[0] = -w6;
+	ly1[1] = ly2[1] = w6;
+
+	lx1[2] = lx2[2] = -w6;
+	lx1[3] = lx2[3] = w6;
+
+	ly1[2] = ly1[3] = -w2;
+	ly2[2] = ly2[3] = w2;
+	
+	ctx.translate(w2, w2);
+}
+
+
+
+	
+decVar();
+drawBoard();
+
+
+
+
+// player 0 => cross
+// player 1 => circle
+
+
+
+function drawBoard () {
+	ctx.lineWidth = sb;
+	ctx.strokeStyle = colorb;
+	ctx.beginPath();
+	n = 0;
+	m = 0;
+	setTimeout(drawBoard2, tg);
+}
+function drawBoard2 () {
+	if (m+dm > 2*lx2[n]) m = 2*lx2[n];
+	else m += dm;
+	ctx.moveTo(lx1[n], ly1[n]);
+	ctx.lineTo(lx1[n]+m, ly2[n]);
+	ctx.stroke();
+	if (m < 2*lx2[n]) setTimeout(drawBoard4, tb);
+	else drawBoard6();
+}
+function drawBoard3 () {
+	if (m+dm > 2*ly2[n]) m = 2*ly2[n];
+	else m += dm;
+	ctx.moveTo(lx1[n], ly1[n]);
+	ctx.lineTo(lx2[n], ly1[n]+m);
+	ctx.stroke();
+	if (m < 2*ly2[n]) setTimeout(drawBoard5, tb);
+	else drawBoard6();
+}
+function drawBoard4 () {
+	drawBoard2();
+}
+function drawBoard5 () {
+	drawBoard3();
+}
+function drawBoard6 () {
+	n++;
+	m = 0;
+	if (n < 2) setTimeout(drawBoard2, tb);
+	else if (n < 4) setTimeout(drawBoard3, tb);
+	else {
+		ctx.lineWidth = sc;
+		ctx.strokeStyle = colorc;
+		canplay[0] = 1;
+		canplay[1] = 1;
+		turnAnimation(0, 1);
+		if (auto[0]) setTimeout(givenAuto, ta);
+	}
+}
+
+
+
+
+function draw (i) {
+	if (p) { 
+		n = i;
+		m = da;
+		setTimeout(draw6, t1);
+	}
+	else {
+		ctx.beginPath();
+		n = i;
+		m = -r;
+		setTimeout(draw2, t0);
+	}
+}
+function draw2 () {	// cross draw start
+	if (m+dc > r) m = r;
+	else m += dc;
+	ctx.moveTo(x[n]-r, y[n]-r);
+	ctx.lineTo(x[n]+m, y[n]+m);
+	ctx.stroke();
+	if (m < r) setTimeout(draw4, t0);
+	else {
+		m = -r;
+		draw3();
+	}
+}
+function draw3 () {
+	if (m+dc > r) m = r;
+	else m += dc;
+	ctx.moveTo(x[n]+r, y[n]-r);
+	ctx.lineTo(x[n]-m, y[n]+m);
+	ctx.stroke();
+	if (m < r) setTimeout(draw5, t0);
+	else draw8();
+}
+function draw4 () {
+	draw9();
+	draw2();
+}
+function draw5 () {
+	draw9();
+	draw3();
+} 	// cross draw end
+
+function draw6 () { // circle draw start
+	ctx.beginPath();
+	ctx.arc(x[n], y[n], r, 0, 0.1*m*Math.PI);
+	ctx.stroke();
+	m += da;
+	if (m <= 20) setTimeout(draw7, t1);
+	else draw8();
+}
+function draw7 () {
+	draw9();
+	draw6();
+} // circle draw end
+
+function draw8 () {
+	winner = win();
+	if (winner) {
+		if (winner == 3) setTimeout(drawLine4, tg);
+		else drawLine();
+	}
+	else {
+		turnAnimation(p, 0);
+		if (p) p = 0;
+		else p = 1;
+		turnAnimation(p, 1);
+		if (auto[p] && canplay[p]) setTimeout(givenAuto, ta);
+	}
+}
+function draw9 () {
+	ctx.clearRect(x[n]-w6+5, y[n]-w6+5, w3-10, w3-10);
+}
+
+function reDrawBoard () {
+	ctx.lineWidth = sb;
+	ctx.strokeStyle = colorb;
+	ctx.beginPath();
+	for (var i = 0; i < 4; i++) {
+		ctx.moveTo(lx1[i], ly1[i]);
+		ctx.lineTo(lx2[i], ly2[i]);
+	}
+	ctx.stroke();
+	ctx.lineWidth = sc;
+	ctx.strokeStyle = colorc;
+}
+function reDraw (q, i) {
+	ctx.lineWidth = sc;
+	ctx.strokeStyle = colorc;
+	if (q) {
+		ctx.beginPath();
+		ctx.arc(x[i], y[i], r, 0, 2*Math.PI);
+		ctx.stroke();
+	}
+	else {
+		ctx.moveTo(x[i]-r, y[i]-r);
+		ctx.lineTo(x[i]+r, y[i]+r);
+		ctx.moveTo(x[i]+r, y[i]-r);
+		ctx.lineTo(x[i]-r, y[i]+r);
+		ctx.stroke();
+	}
+}
+function reDrawLine () {
+	winner = win();
+	ctx.lineWidth = sb;
+	if (winner == 2 && auto[1]) ctx.strokeStyle = colorl;
+	else ctx.strokeStyle = colorw;
+	ctx.beginPath();
+	ctx.moveTo(x1, y1);
+	ctx.lineTo(x2, y2);
+	ctx.stroke();	
+}
+		
+function givenAuto () {
+	var i;
+	if (decideWin(0) != 10) i = decideWin(0);		// decideWin(0) if for self win checking
+	else if (decideWin(1) != 10) i = decideWin(1);	// decideWin(1) if for opponent's win checking
+	else i = decideRandom();
+	drew.push(i);
+	keep[p].push(i);
+	draw(i);
+}
+
+
+function given (i) {
+if (!auto[p] && !winner && canplay[p]) { 
+	if(!drew.includes(i)) {
+		drew.push(i);
+		keep[p].push(i);
+		draw(i);
+	}
+}
+}
+
+function win () {
+	for (var j = 0; j < 3; j++) {
+		for (var i = 0, c = 0; i < keep[p].length; i++) {
+			if (x[keep[p][i]] == x[j]) c++;
+		}
+		if (c == 3) {
+			winLine(x[j], y[0]-b, x[j], y[6]+b);
+			return p+1;
+		}
+	}
+	
+	for (var j = 0; j <= 6; j += 3) {
+		for (var i = 0, c = 0; i < keep[p].length; i++) {
+			if (y[keep[p][i]] == y[j]) c++;
+		}
+		if (c == 3) {
+			winLine(x[0]-b, y[j], x[2]+b, y[j]);
+			return p+1;
+		}
+	}
+	
+	for (var i = 0, c = 0; i < keep[p].length; i++) {
+		if (keep[p][i] == 0 || keep[p][i] == 4 || keep[p][i] == 8) c++;
+	}
+	if (c == 3) {
+		winLine(x[0]-b, y[0]-b, x[8]+b, y[8]+b);
+		return p+1;
+	}
+	
+	for (var i = 0, c = 0; i < keep[p].length; i++) {
+		if (keep[p][i] == 2 || keep[p][i] == 4 || keep[p][i] == 6) c++;
+	}
+	if (c == 3) {
+		winLine(x[2]+b, y[2]-b, x[6]-b, y[6]+b);
+		return p+1;
+	}
+	
+	if (drew.length == 9) return 3;
+	else return 0;
+}
+
+function winLine (a1, b1, a2, b2) {
+	x1 = a1;
+	x2 = a2;
+	y1 = b1;
+	y2 = b2;
+}
+function drawLine () {
+	dx = Math.abs(x2 - x1);
+	dy = Math.abs(y2 - y1);
+	if (x2 < 0) msign = -1;
+	else msign = 1;
+	m = n = 0;
+	ctx.lineWidth = sw;
+	if (winner == 2 && auto[1]) ctx.strokeStyle = colorl;
+	else ctx.strokeStyle = colorw;
+	ctx.beginPath();
+	setTimeout(drawLine2, tg);
+}
+function drawLine2 () {
+	if (dx) {
+		if (m+dm > dx) m = dx;
+		else m += dm;
+	}
+	if (dy) {
+		if (n+dm > dy) n = dy;
+		else n += dm;
+	}
+	ctx.moveTo(x1, y1);
+	ctx.lineTo(x1+m*msign, y1+n);
+	ctx.stroke();
+	if (dx) {
+		if (m < dx) setTimeout(drawLine3, tw);
+		else drawLine4();
+	}
+	else  {
+		if (n < dy) setTimeout(drawLine3, tw);
+		else drawLine4();
+	}
+}
+function drawLine3 () {
+	drawLine2();
+}
+function drawLine4 () {
+	if (winner == 3) {
+		con3.style.width = "none";
+		show.style.float = "none";
+		show.innerHTML = "Draw";
+	}
+	else if (winner == 2) {
+		con3.style.width = "160px";
+		show.style.float = "right";
+		if (auto[1]) show.innerHTML = "Computer Wins";
+		else show.innerHTML = "Player 2 Wins";
+	}
+	else {
+		con3.style.width = "160px";
+		show.style.float = "left";
+		if (auto[1]) show.innerHTML = "You win";
+		else show.innerHTML = "Player 1 Wins";
+	}
+	turnAnimation(p, 0);
+	scores[p]++;
+	score[p].innerHTML = scores[p] + " Win";
+	show.style.display = "flex";
+	setTimeout(newGame, 1500); 
+}
+
+
+function newGame () {
+	ctx.clearRect(-w2, -w2, wt, wt);
+	winner = 0;
+	canplay = new Array (0, 0);
+	drew = new Array ();
+	keep = new Array([], []);
+	drawBoard();
+	setTimeout(newGame2, 1500); 
+}
+function newGame2 () {
+	show.style.display = "none";
+}
+
+
+function decideWin (pq) {
+	var j = 10;
+	if (pq) {
+		if (p) p = 0;
+		else p = 1;
+	}
+	for (var i = 0; i < 9; i++) {
+		if (drew.includes(i)) continue;
+		keep[p].push(i);
+		if (win() == p+1) {
+			j = i;
+			keep[p].pop(i);
+			break;
+		}
+		keep[p].pop(i);
+	}
+	if (pq) {
+		if (p) p = 0;
+		else p = 1;
+	}
+	return j;
+}
+function decidePrevent () {
+	for (var i = 0; i < 9; i++) {
+		if (drew.includes(i)) continue;
+	}
+}
+function decideRandom () {
+	while (true) {
+		var i = Math.floor(Math.random() * 10);
+		if (i < 9 && !drew.includes(i)) break;
+	}
+	return i;
+}
+
+
+
+function turnAnimation (i, isShow) {
+	if (isShow) {
+		turn[i].style.animation = "showTurn 0.5s";
+		turn[i].style.fontSize = "20px";
+	}
+	else {
+		turn[i].style.animation = "hideTurn 0.5s";
+		turn[i].style.fontSize = "0px";
+	}
+}
+
+
+</script>
+
+
