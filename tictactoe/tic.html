@@ -212,7 +212,6 @@ window.addEventListener("resize", handleResize);
 function handleResize () {
 	measureSize ();
 	reDecVar();
-	
 	for (var j = 0; j < 2; j++) {
 		for (var i = 0; i < keep[j].length; i++) {
 			reDraw(j, keep[j][i]);
@@ -226,8 +225,9 @@ function measureSize () {
     var w = container.offsetWidth;
     var h = container.offsetHeight;
 	if (w < h) {
-		if (h * 0.5 < w) min = h * 0.5;
-		else min = w * 0.65;
+		//if (h * 0.5 < w) min = h * 0.5;
+		//else min = w * 0.65;
+		min = w * 0.7;
 	}
 	else min = h * 0.7;
 	
@@ -360,8 +360,6 @@ function drawBoard6 () {
 	if (n < 2) setTimeout(drawBoard2, tb);
 	else if (n < 4) setTimeout(drawBoard3, tb);
 	else {
-		ctx.lineWidth = sc;
-		ctx.strokeStyle = colorc;
 		canplay[0] = 1;
 		canplay[1] = 1;
 		turnAnimation(0, 1);
@@ -373,6 +371,8 @@ function drawBoard6 () {
 
 
 function draw (i) {
+	ctx.lineWidth = sc;
+	ctx.strokeStyle = colorc;
 	if (p) { 
 		n = i;
 		m = da;
@@ -455,8 +455,8 @@ function reDrawBoard () {
 		ctx.lineTo(lx2[i], ly2[i]);
 	}
 	ctx.stroke();
-	ctx.lineWidth = sc;
-	ctx.strokeStyle = colorc;
+	//ctx.lineWidth = sc;
+	//ctx.strokeStyle = colorc;
 }
 function reDraw (q, i) {
 	ctx.lineWidth = sc;
@@ -611,7 +611,7 @@ function drawLine4 () {
 	scores[p]++;
 	score[p].innerHTML = scores[p] + " Win";
 	show.style.display = "flex";
-	setTimeout(newGame, 1500); 
+	//setTimeout(newGame, 1500); 
 }
 
 
@@ -621,6 +621,8 @@ function newGame () {
 	canplay = new Array (0, 0);
 	drew = new Array ();
 	keep = new Array([], []);
+	if (p) p = 0;
+	else p = 1;
 	drawBoard();
 	setTimeout(newGame2, 1500); 
 }
