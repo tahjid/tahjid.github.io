@@ -26,6 +26,7 @@ margin: 0px 20px; padding: 10px 15px; box-sizing: border-box;
 border-radius: 100px; box-shadow: 0px 5px 0px #002222;
 font-family: monospace, verdana; font-size: 20px; 
 background: linear-gradient(#3C6255, #61876E); cursor: pointer;
+user-select: none; -webkit-user-select: none; -ms-user-select: none;
 }
 .types:hover {background: linear-gradient(#61876E, #3C6255);}
 .types:active {transform: translateY(2px); box-shadow: 0px 3px 0px #002222;}
@@ -42,8 +43,8 @@ background: linear-gradient(#3C6255, #61876E); cursor: pointer;
 #toBalance {width: 160px; height: 55px;}
 #con3 {height: 55px;}
 #show {
-width: 0px; height: 50px;
-overflow: hidden; white-space : nowrap;
+width: 0px; height: 50px; padding: 0px 5px;
+overflow: hidden; white-space: nowrap;
 border-radius: 100px; box-shadow: 0px 4px 0px black;
 background-image: linear-gradient(#164B60, #3AA6B9);
 display: none; justify-content: center; align-items: center;
@@ -62,6 +63,7 @@ padding: 20px 0px; box-sizing: border-box;
 height: 80%; width: 100%; box-shadow: 0px 0px 8px black; border-radius: 30px; 
 background: linear-gradient(#73777B, #A1A9A9, #73777B);
 display: flex; flex-direction: column; justify-content: space-around; align-items: center;
+user-select: none; -webkit-user-select: none; -ms-user-select: none;
 }
 .icon {width: 40%;}
 .name {font-family: Courier, arial; font-size: 20px; font-weight: bold;}
@@ -189,6 +191,21 @@ font-family: Lucida Sans, verdana; font-weight: bold; font-style: italic; font-s
 	
 </div>
 
+
+
+<audio id="crossAudio" preload="auto">
+	<source src="photo/cross.mp3" type="audio/mpeg">
+</audio>
+<audio id="winAudio" preload="auto">
+	<source src="photo/win.mp3" type="audio/mpeg">
+</audio>
+<audio id="loseAudio" preload="auto">
+	<source src="photo/lose.mp3" type="audio/mpeg">
+</audio>
+<audio id="drawAudio" preload="auto">
+	<source src="photo/draw.mp3" type="audio/mpeg">
+</audio>
+
 </body>
 </html>
 
@@ -274,6 +291,7 @@ function measureSize () {
 
 function decVar () {
 	p = 0;
+	startp = 0;
 	winner = 0;
 	t0 = 1;		// p0
 	t1 = 15;	// p1
@@ -291,6 +309,7 @@ function decVar () {
 	colorc = "#1B6B93";
 	colorw = "#5D9C59";
 	colorl = "#7E1717";
+	issound = 1;
 	canplay = new Array (0, 0);
 	drew = new Array ();
 	keep = new Array([], []);
@@ -405,7 +424,7 @@ function drawBoard6 () {
 		canplay[0] = 1;
 		canplay[1] = 1;
 		turnAnimation(p, 1);
-		if (auto[0]) setTimeout(givenAuto, ta);
+		if (auto[p]) setTimeout(givenAuto, ta);
 	}
 }
 
@@ -426,6 +445,7 @@ function draw (i) {
 		m = -r;
 		setTimeout(draw2, t0);
 	}
+	playCross();
 }
 function draw2 () {	// cross draw start
 	if (m+dc > r) m = r;
@@ -634,18 +654,26 @@ function drawLine4 () {
 		con3.style.width = "none";
 		show.style.float = "none";
 		show.innerHTML = "Draw";
+		playDraw();
 	}
 	else if (winner == 2) {
 		con3.style.width = "160px";
 		show.style.float = "right";
-		if (auto[1]) show.innerHTML = "Computer Wins";
-		else show.innerHTML = "Player 2 Wins";
+		if (auto[1]) {
+			show.innerHTML = "Computer Wins";
+			playLose();
+		}
+		else {
+			show.innerHTML = "Player 2 Wins";
+			playWin();
+		}
 	}
 	else {
 		con3.style.width = "160px";
 		show.style.float = "left";
 		if (auto[1]) show.innerHTML = "You win";
 		else show.innerHTML = "Player 1 Wins";
+		playWin();
 	}
 	turnAnimation(p, 0);
 	scores[p]++;
@@ -661,10 +689,10 @@ function newGame () {
 	canplay = new Array (0, 0);
 	drew = new Array ();
 	keep = new Array([], []);
-	/*
-	if (p) p = 0;
-	else p = 1;*/
-	p = 0;
+	
+	if (startp) startp = 0;
+	else startp = 1;
+	p = startp;
 	drawBoard();
 	setTimeout(newGame2, 1500); 
 }
@@ -725,6 +753,19 @@ function turnAnimation (i, isShow) {
 	}
 }
 
+
+function playCross () {
+	crossAudio.play();
+}
+function playWin () {
+	winAudio.play();
+}
+function playLose () {
+	loseAudio.play();
+}
+function playDraw () {
+	drawAudio.play();
+}
 
 </script>
 
