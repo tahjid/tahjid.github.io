@@ -345,12 +345,16 @@ function reDecVar () {
 
 
 function setType (type) {
+	type2 = type;
+	setTimeout(setType2, 100);
+}
+function setType2 () {
 	starting.style.display = "none";
 	container.style.display = "flex";
 	measureSize();
 	decVar();
 	drawBoard();
-	if (!type) {
+	if (!type2) {
 		names[1].innerHTML = "Player 2";
 		names[3].innerHTML = "Player 2";
 		turn[1].innerHTML = "Your Turn";
