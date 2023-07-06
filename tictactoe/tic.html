@@ -218,6 +218,9 @@ background: radial-gradient(#919999, #636B67);
 <audio id="drawAudio" preload="auto">
 	<source src="photo/draw.mp3" type="audio/mpeg">
 </audio>
+<audio id="buttonAudio" preload="auto">
+	<source src="photo/button.mp3" type="audio/mpeg">
+</audio>
 
 </body>
 </html>
@@ -236,7 +239,8 @@ isHome = 1;
 isSound = 1;
 
 window.addEventListener("resize", handleResize);
-
+window.addEventListener('blur', check);
+window.addEventListener('focus', checked);
 
 function resizeCanvas() {
     console.log( "devicePixelRatio: "+window.devicePixelRatio );
@@ -380,6 +384,7 @@ function reDecVar () {
 
 function setType (type) {
 	type2 = type;
+	playButton();
 	setTimeout(setType2, 200);
 }
 function setType2 () {
@@ -455,7 +460,7 @@ function drawBoard6 () {
 function draw (i) {
 	ctx.lineWidth = sc;
 	ctx.strokeStyle = colorc;
-	if (p) { 
+	if (p) {
 		n = i;
 		m = da;
 		setTimeout(draw6, t1);
@@ -809,17 +814,35 @@ function setSound () {
 	}
 }
 function playCross () {
-	crossAudio.play();
+	if (isSound) crossAudio.play();
 }
 function playWin () {
-	winAudio.play();
+	if (isSound) winAudio.play();
 }
 function playLose () {
-	loseAudio.play();
+	if (isSound) loseAudio.play();
 }
 function playDraw () {
-	drawAudio.play();
+	if (isSound) drawAudio.play();
 }
+function playButton () {
+	if (isSound) buttonAudio.play();
+}
+
+
+function check () {
+	isSound = 0;
+	crossAudio.pause();
+	winAudio.pause();
+	loseAudio.pause();
+	drawAudio.pause();
+	buttonAudio.pause();
+}
+function checked () {
+	isSound = 1;
+}
+
+
 
 </script>
 
