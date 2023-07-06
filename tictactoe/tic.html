@@ -7,17 +7,31 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body {
-margin: 0px; 
-}
+body {margin: 0px; background-image: url(photo/bg.jpg);}
 
 
 
 .toCenter {display: flex; align-items: center; justify-content: space-around;}
 
-#container {height: 100%; width: 100%; flex-direction: column; background-image: url(photo/bg.jpg);}
-#con {width: 100%;}
-#com {width: 100%;}
+#starting {height: 100%; width: 100%; flex-direction: column;}
+#title {
+background-clip: text; -webkit-background-clip: text; 
+background-image: linear-gradient(to top left, #2C5245, #5C8275, #2C5245, #5C8275, #2C5245, #5C8275);
+font-size: 50px; font-family: Tahoma, verdana; font-weight: bold; color: transparent;
+}
+#tag {text-align: right; font-size: 20px; font-family: Tahoma, arial; color: #aabbaa;}
+#type {width: 100%; justify-content: center;}
+.types {
+margin: 0px 20px; padding: 10px 15px; box-sizing: border-box; 
+border-radius: 100px; box-shadow: 0px 5px 0px #002222;
+font-family: monospace, verdana; font-size: 20px; 
+background: linear-gradient(#3C6255, #61876E); cursor: pointer;
+}
+.types:hover {background: linear-gradient(#61876E, #3C6255);}
+.types:active {transform: translateY(2px); box-shadow: 0px 3px 0px #002222;}
+
+#container {height: 100%; width: 100%; flex-direction: column; display: none;}
+#con, #com {width: 100%;}
 #table {position: absolute;}
 .box {height: 100%; width: auto; cursor: pointer;}
 
@@ -53,7 +67,7 @@ display: flex; flex-direction: column; justify-content: space-around; align-item
 .name {font-family: Courier, arial; font-size: 20px; font-weight: bold;}
 .score {font-family: monospace, verdana; font-size: 20px;}
 .turn {
-width: 100%; height: 20%; color: #0A6EBD; white-space : nowrap;
+width: 100%; height: 20%; color: #ffffaa; white-space : nowrap;
 display: flex; justify-content: center; align-items: end;
 font-family: Lucida Sans, verdana; font-weight: bold; font-style: italic; font-size: 0px;
 }
@@ -73,6 +87,7 @@ font-family: Lucida Sans, verdana; font-weight: bold; font-style: italic; font-s
 }
 @media only screen and (orientation: Portrait) {
 .con4, #toBalance {display: none;}
+.box, .types {cursor: none;}
 }
 
 
@@ -82,6 +97,21 @@ font-family: Lucida Sans, verdana; font-weight: bold; font-style: italic; font-s
 
 <body>
 
+
+
+<div id="starting" class="toCenter">
+	<div id="titlecon">
+		<div id="title">Tic Tac Toe</div>
+		<div id="tag" class="font-effect-outline">Online</div>
+	</div>
+	
+	<div id="type" class="toCenter">
+		<div class="types" onclick="setType(1)">1 Player</div>
+		<div class="types" onclick="setType(0)">2 Player</div>
+	</div>
+
+
+</div>
 
 
 <div id="container" class="toCenter">
@@ -98,7 +128,7 @@ font-family: Lucida Sans, verdana; font-weight: bold; font-style: italic; font-s
 				<div class="name">Player 1</div>
 				<div class="score">0 Win</div>
 			</div>
-			<div class="turn">Your Turn</div>
+			<div class="turn font-effect-outline">Your Turn</div>
 		</div>
 		
 		<div id="con2">
@@ -128,7 +158,7 @@ font-family: Lucida Sans, verdana; font-weight: bold; font-style: italic; font-s
 				<div class="name">Computer</div>
 				<div class="score">0 Win</div>
 			</div>
-			<div class="turn">Thinking...</div>
+			<div class="turn font-effect-outline">Thinking...</div>
 		</div>
 		
 	</div>
@@ -143,7 +173,7 @@ font-family: Lucida Sans, verdana; font-weight: bold; font-style: italic; font-s
 				<div class="name">Player 1</div>
 				<div class="score">0 Win</div>
 			</div>
-			<div class="turn">Your Turn</div>
+			<div class="turn font-effect-outline">Your Turn</div>
 		</div>
 		
 		<div class="con5">
@@ -152,7 +182,7 @@ font-family: Lucida Sans, verdana; font-weight: bold; font-style: italic; font-s
 				<div class="name">Computer</div>
 				<div class="score">0 Win</div>
 			</div>
-			<div class="turn">Thinking...</div>
+			<div class="turn font-effect-outline">Thinking...</div>
 		</div>
 
 	</div>
@@ -167,12 +197,12 @@ font-family: Lucida Sans, verdana; font-weight: bold; font-style: italic; font-s
 canvas = document.getElementById("canvas");
 ctx = canvas.getContext("2d");
 
-name = document.getElementsByClassName("name");
+names = document.getElementsByClassName("name");
 turn = document.getElementsByClassName("turn");
 score = document.getElementsByClassName("score");
 
-measureSize();
 
+window.addEventListener("resize", handleResize);
 
 
 function resizeCanvas() {
@@ -207,7 +237,7 @@ function resizeCanvas() {
     console.log( "new canvas style size: "+canvas.style.width+"px x "+canvas.style.height+"px" );
 }
 
-window.addEventListener("resize", handleResize);
+
 
 function handleResize () {
 	measureSize ();
@@ -225,9 +255,7 @@ function measureSize () {
     var w = container.offsetWidth;
     var h = container.offsetHeight;
 	if (w < h) {
-		//if (h * 0.5 < w) min = h * 0.5;
-		//else min = w * 0.65;
-		min = w * 0.7;
+		min = w * 0.8;
 	}
 	else min = h * 0.7;
 	
@@ -257,7 +285,7 @@ function decVar () {
 	da = 1;		// circle
 	dc = 3;		// cross
 	sb = 5;
-	sc = 10;
+	sc = 8;
 	sw = 5;		// win
 	colorb = "#333";
 	colorc = "#1B6B93";
@@ -310,16 +338,26 @@ function reDecVar () {
 
 
 
-	
-decVar();
-drawBoard();
-
-
-
 
 // player 0 => cross
 // player 1 => circle
 
+
+
+function setType (type) {
+	starting.style.display = "none";
+	container.style.display = "flex";
+	measureSize();
+	decVar();
+	drawBoard();
+	if (!type) {
+		names[1].innerHTML = "Player 2";
+		names[3].innerHTML = "Player 2";
+		turn[1].innerHTML = "Your Turn";
+		turn[3].innerHTML = "Your Turn";
+		auto[1] = 0;
+	}
+}
 
 
 function drawBoard () {
@@ -362,7 +400,7 @@ function drawBoard6 () {
 	else {
 		canplay[0] = 1;
 		canplay[1] = 1;
-		turnAnimation(0, 1);
+		turnAnimation(p, 1);
 		if (auto[0]) setTimeout(givenAuto, ta);
 	}
 }
@@ -455,8 +493,6 @@ function reDrawBoard () {
 		ctx.lineTo(lx2[i], ly2[i]);
 	}
 	ctx.stroke();
-	//ctx.lineWidth = sc;
-	//ctx.strokeStyle = colorc;
 }
 function reDraw (q, i) {
 	ctx.lineWidth = sc;
@@ -611,7 +647,7 @@ function drawLine4 () {
 	scores[p]++;
 	score[p].innerHTML = scores[p] + " Win";
 	show.style.display = "flex";
-	//setTimeout(newGame, 1500); 
+	setTimeout(newGame, 1500); 
 }
 
 
@@ -621,8 +657,10 @@ function newGame () {
 	canplay = new Array (0, 0);
 	drew = new Array ();
 	keep = new Array([], []);
+	/*
 	if (p) p = 0;
-	else p = 1;
+	else p = 1;*/
+	p = 0;
 	drawBoard();
 	setTimeout(newGame2, 1500); 
 }
@@ -671,11 +709,15 @@ function decideRandom () {
 function turnAnimation (i, isShow) {
 	if (isShow) {
 		turn[i].style.animation = "showTurn 0.5s";
+		turn[i+2].style.animation = "showTurn 0.5s";
 		turn[i].style.fontSize = "20px";
+		turn[i+2].style.fontSize = "20px";
 	}
 	else {
 		turn[i].style.animation = "hideTurn 0.5s";
+		turn[i+2].style.animation = "hideTurn 0.5s";
 		turn[i].style.fontSize = "0px";
+		turn[i+2].style.fontSize = "0px";
 	}
 }
 
