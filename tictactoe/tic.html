@@ -3,7 +3,7 @@
 <head>
 <title>Tic Tac Toe</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&effect=outline">
-<link rel="icon" type="image/x-icon" href="cars/monty.png">
+<link rel="icon" type="image/x-icon" href="photo/icon.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -35,7 +35,6 @@ user-select: none; -webkit-user-select: none; -ms-user-select: none;
 #con, #com {width: 100%;}
 #table {position: absolute;}
 .box {height: 100%; width: auto; cursor: pointer;}
-
 
 
 
@@ -134,7 +133,7 @@ background: radial-gradient(#919999, #636B67);
 	<div id="con3">
 		<div id="show" class="font-effect-outline"></div>
 	</div>
-	
+
 	<div id="con" class="toCenter">
 	
 		<div class="con4">
@@ -277,15 +276,17 @@ function resizeCanvas() {
 
 
 function handleResize () {
-	measureSize ();
-	reDecVar();
-	for (var j = 0; j < 2; j++) {
-		for (var i = 0; i < keep[j].length; i++) {
-			reDraw(j, keep[j][i]);
+	if (container.offsetWidth > container.offsetHeight) {
+		measureSize ();
+		reDecVar();
+		for (var j = 0; j < 2; j++) {
+			for (var i = 0; i < keep[j].length; i++) {
+				reDraw(j, keep[j][i]);
+			}
 		}
+		reDrawBoard();
+		if (winner == 1 || winner == 2) reDrawLine();
 	}
-	reDrawBoard();
-	if (winner == 1 || winner == 2) reDrawLine();
 }
 function measureSize () {
 	var min;
@@ -373,12 +374,6 @@ function reDecVar () {
 	
 	ctx.translate(w2, w2);
 }
-
-
-
-
-// player 0 => cross
-// player 1 => circle
 
 
 
@@ -677,7 +672,7 @@ function drawLine3 () {
 }
 function drawLine4 () {
 	if (winner == 3) {
-		con3.style.width = "none";
+		con3.style.width = "auto";
 		show.style.float = "none";
 		show.innerHTML = "Draw";
 		playDraw();
@@ -693,6 +688,9 @@ function drawLine4 () {
 			show.innerHTML = "Player 2 Wins";
 			playWin();
 		}
+		scores[p]++;
+		score[p].innerHTML = scores[p] + " Win";
+		score[p+2].innerHTML = scores[p] + " Win";
 	}
 	else {
 		con3.style.width = "170px";
@@ -700,11 +698,11 @@ function drawLine4 () {
 		if (auto[1]) show.innerHTML = "You win";
 		else show.innerHTML = "Player 1 Wins";
 		playWin();
+		scores[p]++;
+		score[p].innerHTML = scores[p] + " Win";
+		score[p+2].innerHTML = scores[p] + " Win";
 	}
 	turnAnimation(p, 0);
-	scores[p]++;
-	score[p].innerHTML = scores[p] + " Win";
-	score[p+2].innerHTML = scores[p] + " Win";
 	show.style.display = "flex";
 	setTimeout(newGame, 1500); 
 }
