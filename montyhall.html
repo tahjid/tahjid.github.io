@@ -1,87 +1,381 @@
-<!DOCTYPE html>
-
 <html>
+
 <head>
 <title>Monty Hall</title>
 
-<link rel="stylesheet" type="text/css" href="style.css">
-<link rel="icon" type="image/x-icon" href="cars/loyalty.png">
+<link rel="icon" type="image/x-icon" href="cars/monty.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+body {
+margin: 0px; 
+background-color: black; 
+background-image: url('cars/stage.jpg'); 
+background-size: 100% 100%; 
+}
 
-body {background: #eee;}
 
-#logo {
-width: 90px;
+@font-face {font-family: Gamescore; src: url('cars/Gamescore.ttf');}
+
+
+#header {
+padding: 25px 0px;
+text-align: center;
+font-family: Gamescore; font-size: 50px;
+color: #AA8769; cursor: default;
+}
+
+#score, #point {
+display: inline-block;
+margin: 0px 5px;
+font-family: Gamescore; font-size: 35px;
+color: #AA8769; cursor: default;
+}
+#point {width: 35px;}
+
+
+
+#con {position: relative; height: 76%;}
+#cont {margin: 0 auto;}
+#cons {
 position: absolute;
-left: 25px;
-border-radius: 150px;
+bottom: 0px;
+height: 60%; width: 50%;
+margin-left: 25%;
 }
 
-#con {margin: 20px 0px 10px 0px;}
-#mt {
-display: inline-block; 
-width: 40%; 
-padding: 0px 100px; 
-color: #444;
-font-family: arial; 
-font-size: 20px;
-text-align: justify;
-}
-#mi {display: inline-block; width: 38%;}
 
-#conply {display: -webkit-box; -webkit-box-pack: center; -webkit-box-align: center;}
-#ply {
-color: white; text-align: center; 
-font-size: 25px; font-family: arial; //font-weight: bold; 
-padding: 17px 15px; border-radius: 100px; 
-background: -webkit-linear-gradient(#2E445C, #336A94); 
-box-shadow: 0px 0px 10px #DDF9FD;
-//margin-bottom: 20px;
+.backDoor {
+  background-image: url('cars/backdoor.png');
+  background-size: 100% 100%;
+  position: relative;
+  display: inline-block;
+  width: 26%;
+  height: 100%;
+  box-shadow: 0px 0px 15px black;
 }
-#ply:hover {
-background: -webkit-linear-gradient(#336A94, #2E445C);
-box-shadow: 0px 0px 20px white;
+#middledoor {margin: 0px 11%;}
+
+.door {
+  background-image: url('cars/door.png');
+  background-size: 100% 100%;
+  position: absolute;
+  left: 14.5%;
+  top: 4%;
+  width: 71%;
+  height: 94%;
+  transform-origin: left;
+  transition: all 0.5s ease-in-out;
+  cursor: grab;
 }
+.door:active {cursor: grabbing;}
+
+.doorOpen {
+background-image: url('cars/dooropen.png');
+transform: perspective(1200px) translateZ(0px) translateX(0px) translateY(0px) rotateY(-105deg);
+}
+
+.gift {
+  position:absolute;
+  left: 14.5%;
+  top: 4%;
+  width: 71%;
+  height: 94%;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+
+.sdoor {
+position:absolute;
+top: 105%;
+width: 100%;
+height: 12px;
+border-radius: 2px;
+box-shadow: inset 0px 0px 15px #00ffff;
+display: none;
+}
+
+.mIcns {
+position: absolute; 
+bottom: 20px; 
+height: 50px; 
+border-radius: 100px; 
+cursor: pointer;
+}
+#sIcn {left: 20px;}
+#vIcn {right: 20px;}
+
+
+.notec {
+position: absolute; top: 40%;
+color: white; width: 15%;
+background: linear-gradient(#336688, #3388aa);
+box-shadow: 5px 5px 5px #001;
+cursor: default;
+border-radius: 30px;
+padding: 1%;
+font-family: Lucida sans;
+text-align: center;
+transition: all 1s ease-in-out;
+}
+#notec1 {left: 5%;}
+#notec2 {right: 5%;}
+
+.noteShow {opacity: 1;}
+.noteHide {opacity: 0;}
+
+@media only screen and (max-width: 800px) {
+body {background-size: auto 100%; background-position-x: center;}
+#header {font-size: 40px;}
+#score, #point {font-size: 30px;}
+#cons {height: 35%; width: 90%; margin-left: 5%;}
+.notec {width: 80%; top: 25%; padding: 3%;}
+#notec1 {left: 7%;}
+#notec2 {right: 7%;}
+.mIcns {cursor: none;}
+}
+
 
 </style>
 
 </head>
+
 <body>
 
 
-<div id='header'>
-<img src="cars/logo.gif" id="logo">
-<a href='index.html'><div class='hdr'>Home</div></a>
-<a href='about.html'><div class='hdr'>About me</div></a>
-<a href='montyhall.html'><div class='hdr'>Monty Hall</div></a>
-</div>
-
-
-
 <div id="con">
+<div id="header">MONTY HALL</div>
 
-<div id="mt">
+<table id="cont">
+<tr>
+<td><div id="score">SCORE:</div></td>
+<td><div id="point">0</div></td>
+</tr>
+</table>
 
-<p>
-The Monty Hall problem is named for its similarity to the Let's Make a Deal television game show hosted by Monty Hall. The problem is stated as follows. Assume that a room is equipped with three doors. Behind two are goats, and behind the third is a shiny new car. You are asked to pick a door, and will win whatever is behind it. Let's say you pick door 1. Before the door is opened, however, someone who knows what's behind the doors (Monty Hall) opens one of the other two doors, revealing a goat, and asks you if you wish to change your selection to the third door (i.e., the door which neither you picked nor he opened). The Monty Hall problem is deciding whether you do.
-</p>
-<p>
-The correct answer is that you do want to switch. If you do not switch, you have the expected 1/3 chance of winning the car, since no matter whether you initially picked the correct door, Monty will show you a door with a goat. But after Monty has eliminated one of the doors for you, you obviously do not improve your chances of winning to better than 1/3 by sticking with your original choice. If you now switch doors, however, there is a 2/3 chance you will win the car.
-</p>
+<div id="cons">
+<div class="backDoor">
+<div class="gift"></div>
+<div class="door" onclick="bopen(0)"></div>
+<div class="sdoor"></div>
+</div><div class="backDoor" id="middledoor">
+<div class="gift"></div>
+<div class="door" onclick="bopen(1)"></div>
+<div class="sdoor"></div>
+</div><div class="backDoor">
+<div class="gift"></div>
+<div class="door" onclick="bopen(2)"></div>
+<div class="sdoor"></div>
+</div>
+</div>
 </div>
 
-<img src="cars/mtree.png" id="mi">
-
-</div>
 
 
 
-<div id="conply">
-<a href='monty.html' target='_blank'><div id="ply">Play Monty Hall</div></a>
-</div>
+<div id="notec1" class="notec">There is a car behind one of these three doors. You have to guess that door.<br>Click or touch on the door to select it.</div>
+<div id="notec2" class="notec noteHide">One door is opened behind which there is no car. Now you can either stick to your previous choice or select another door.<br>Click or touch on the door to open it.</div>
 
+
+
+<img src="cars/sound.png" id="sIcn" class="mIcns" onclick="SoUnd()">
+<img src="cars/vibration.png" id="vIcn" class="mIcns" onclick="ViBra()">
+
+<audio id="myAudioJ" preload="auto"><source src="cars/joy.mp3" type="audio/mpeg"></audio>
+<audio id="myAudioS" preload="auto"><source src="cars/sad.mp3" type="audio/mpeg"></audio>
+<audio id="doorOpen" preload="auto"><source src="cars/door-open.mp3" type="audio/mpeg"></audio>
+<audio id="doorClose" preload="auto"><source src="cars/door-close.mp3" type="audio/mpeg"></audio>
 
 </body>
 
 </html>
+
+
+
+<script>
+
+
+bdW = window.innerWidth;
+
+window.addEventListener('blur', check);
+window.addEventListener('focus', checked);
+
+t = w = s2 = 0;
+isSound = 1;
+isVibra = 1;
+cl = 8;
+cara = new Array ();
+foa = new Array();
+gnara = new Array (0,1,2,0,1,2,0,1,2,0,1,2,0,1,2,0,1,2,0,1,2,0,1,2,0,1,2,0,1,2);
+
+for (var i = 1, j = 0; i <= cl; i++) {
+	cara[j++] = "car"+i+".png";
+}
+
+b = document.getElementsByClassName("backDoor");
+d = document.getElementsByClassName("door");
+g = document.getElementsByClassName("gift");
+sdoor = document.getElementsByClassName("sdoor");
+
+startf();
+
+function startf () {
+	c = 0;
+	fo = 3;
+	gn = Math.floor(Math.random() * 30);
+	gn = gnara[gn];
+}
+
+function bopen (s) {
+if (c < 2 && s != fo) {
+	vibra();
+	s2 = s;
+	for (var i = 0; i < 3; i++) {
+		sdoor[i].style.display = "none";
+	}
+
+	if (c == 0) {
+		sdoor[s].style.display = "block";
+	if (gn == s) {
+		for (var i = 0, j = 0; i < 3; i++) {
+			if (i == s) continue;
+			foa[j++] = i;
+		}
+		while (1) {
+			f = Math.floor(Math.random() * 10);
+			if (f < 2) break;
+		}
+		fo = foa[f];
+	}
+	else {
+		for (var i = 0; i < 3; i++) {
+			if (i == s || i == gn) continue;
+			fo = i;
+		}
+	}
+	d[fo].classList.toggle("doorOpen");
+	playOpen();
+	if (t <= 1) {
+	notec1.classList.add("noteHide");
+	notec2.classList.remove("noteHide");
+	}
+	}
+	else if (c == 1) {
+		t++;
+		d[s].classList.toggle("doorOpen");
+		playOpen();
+		if (t <= 2) notec2.classList.add("noteHide");
+		if (gn == s) {
+			playAudioJ();
+			w++;
+			while (1) {
+				cn = Math.floor(Math.random() * 10);
+				if (cn < cl) break;
+			}
+			cnm = "url(cars/"+cara[cn]+")";
+			g[s].style.backgroundImage = cnm;
+		}
+		else playAudioS();
+
+		point.innerHTML = w;
+		setTimeout (pAgain, 1500);
+	}
+	c++;
+}
+}
+
+
+function pAgain() {
+playClose();
+d[s2].classList.toggle("doorOpen");
+d[fo].classList.toggle("doorOpen");
+g[0].style.backgroundImage = "none";
+g[1].style.backgroundImage = "none";
+g[2].style.backgroundImage = "none";
+if (t <= 1) notec1.classList.remove("noteHide");
+startf();
+}
+
+
+
+
+
+
+
+function playAudioJ () { 
+	if (isSound) setTimeout(playAudioJ2, 500);
+}
+function playAudioJ2 () { 
+	myAudioJ.play();
+}
+
+function playAudioS () { 
+	if (isSound) setTimeout(playAudioS2, 500);
+}
+function playAudioS2 () { 
+	myAudioS.play();
+}
+
+function playOpen () { 
+	if (isSound) doorOpen.play();
+}
+
+function playClose () { 
+	if (isSound) setTimeout(playClose2, 200);
+}
+function playClose2 () {
+	doorClose.play();
+}
+
+function check () {
+	isSound = 0;
+	myAudioJ.pause();
+	myAudioS.pause();
+	doorOpen.pause();
+	doorClose.pause();
+}
+function checked () {
+	isSound = 1;
+}
+function vibra () { 
+	if (isVibra == 1) {
+	window.navigator.vibrate(50);
+	}
+}
+
+
+function SoUnd () {
+if (isSound == 1) {
+sIcn.src = "cars/mute.png";
+isSound = 0;
+}
+else {
+sIcn.src = "cars/sound.png";
+isSound = 1;
+}
+}
+
+function ViBra () {
+if (isVibra == 1) {
+vIcn.style.opacity = 0.5;
+isVibra = 0;
+}
+else {
+vIcn.style.opacity = 1;
+window.navigator.vibrate(150);
+isVibra = 1;
+}
+}
+
+
+
+
+
+
+
+</script>
+
+
+

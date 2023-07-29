@@ -1,31 +1,30 @@
 
-body {margin: 0;}
-
-#header {
-display: -webkit-box; -webkit-box-pack: center; -webkit-box-align: center; width: 100%;
-background: -webkit-linear-gradient(#496581, #38668C);
-}
-
-.hdr {
-font-size: 25px; 
-font-family: arial;
-font-weight: bold;
-color: white; 
-padding: 20px 0px;
-margin: 20px 20px 30px 20px;
-width: 180px; 
-text-align: center; 
-border-radius: 10px;
-box-shadow: 0px 10px 0px #113;
-display: inline-block;
-background: -webkit-linear-gradient(top left, #3E546C, #2E445C);
+#anim1 {
+	position: absolute; left: 30%; top: 13%; 
+	width: 5%; rotate: 180deg;
+	border-radius: 50px;
+	animation: anim1 120s linear infinite;
 }
 
 
-
-.hdr:hover {
-box-shadow: 0px 7px 0px #113;
-transform: translateY(3px);
+@keyframes anim1 {
+  0% {left: 30%; top: 13%; rotate: 180deg;}
+  5% {left: 0%; top: 60%; rotate: 90deg;}
+  12% {left: 70%; top: 88%; rotate: 270deg;}
+  17% {left: 95%; top: 40%; rotate: 360deg;}
+  22% {left: 70%; top: 13%; rotate: 90deg;}
+  30% {left: 0%; top: 40%; rotate: 270deg;}
+  35% {left: 30%; top: 88%; rotate: 360deg;}
+  42% {left: 95%; top: 60%; rotate: 180deg;}
+  50% {left: 30%; top: 13%; rotate: 360deg;}
+  54% {left: 0%; top: 30%; rotate: 90deg;}
+  62% {left: 95%; top: 50%; rotate: 360deg;}
+  70% {left: 0%; top: 70%; rotate: 270deg;}
+  74% {left: 50%; top: 88%; rotate: 360deg;}
+  78% {left: 95%; top: 70%; rotate: 90deg;}
+  86% {left: 0%; top: 50%; rotate: 360deg;}
+  94% {left: 95%; top: 30%; rotate: 270deg;}
+  100% {left: 30%; top: 13%; rotate: 180deg;}
 }
 
-a:link {text-decoration: none;}
+

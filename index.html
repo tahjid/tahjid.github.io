@@ -1,46 +1,125 @@
-<!DOCTYPE html>
+<html>
 
 <html>
 <head>
 <title>Tahjid Islam</title>
 
-<link rel="stylesheet" type="text/css" href="style.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&effect=outline">
 <link rel="icon" type="image/x-icon" href="cars/loyalty.png">
+<link rel="stylesheet" type="text/css" href="style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 
-body {background: url('cars/hbg.jpg');}
+body {margin: 0;}
 
-#logo {
-width: 90px;
-position: absolute;
-left: 25px;
-border-radius: 150px;
+.sections {width: 100%; height: 100%; display: flex; align-items: center; background-size: cover;}
+
+#header {
+position: fixed; top: 0px; z-index: 2;
+width: 100%; background: #627D92; background: #527082; padding: 30px 0px; 
+display: flex; align-items: center; justify-content: space-between;
+}
+#logo {font-size: 20px; font-family: sofia; font-style: italic; color: #ffd; margin-left: 30px;}
+
+#links {margin-right: 30px;}
+.hdr {
+font-size: 16px; font-family: verdana; font-weight: bold; color: #ffd;
+margin: 0px 20px; padding: 5px; float: left; border-bottom: 2px solid transparent; cursor: pointer;
+}
+.hdr:active {color: #ddc;} 
+
+
+
+
+#home {background-image: url(image/hbg.png); justify-content: center;}
+#homecon {width: 30%; color: #334; z-index: 1;}
+
+#hello {
+font-size: 20px; font-family: Lucida Console; margin-bottom: 10px; 
+width: 150px; overflow: hidden; white-space: nowrap; animation: showHello 1s;
+}
+#nam {
+font-size: 40px; font-family: Segoe UI, arial; margin-bottom: 10px;
+width: 420px; overflow: hidden; white-space: nowrap; animation: showName 1s;
+}
+#front {
+font-size: 30px; font-family: Century Gothic; margin-bottom: 10px;
+width: 320px; overflow: hidden; white-space: nowrap; animation: showFront 1s;
+}
+#from {
+font-size: 20px; font-family: Lucida Console; margin-bottom: 10px;
+width: 200px; overflow: hidden; white-space: nowrap; animation: showFrom 1s;
 }
 
-#con {
-margin-top: 50px;
-display: -webkit-box; -webkit-box-pack: center; -webkit-box-align: center;}
-#mt {
-display: inline-block; 
-font-family: arial; 
-font-size: 20px;
-color: #227;
+@keyframes showHello {
+  0% {width: 0px;}
+  100% {width: 150px;}
 }
-#mi {
-background: url('cars/picb.jpg');
-display: inline-block; 
-height: 400px;
-width: 400px;
-border-radius: 500px;
+@keyframes showName {
+  0% {width: 0px;}
+  100% {width: 420px;}
+}
+@keyframes showFront {
+  0% {width: 0px;}
+  100% {width: 320px;}
+}
+@keyframes showFrom {
+  0% {width: 0px;}
+  100% {width: 200px;}
 }
 
-#hello {font-family: Lucida Console; margin-bottom: 10px;}
-#name {font-size: 40px; font-family: Segoe UI; margin-bottom: 10px;}
-#front {font-size: 30px; font-family: Century Gothic; margin-bottom: 10px;}
-#from {font-family: Lucida Console; margin-bottom: 10px;}
 
 
+#about {background-image: url(image/abg.png); justify-content: space-around;}
+#aboutcon {font-family: Lucida Sans; font-size: 18px; text-align: justify; width: 750px; color: #334;}
+#aimage {display: inline-block; height: 400px; width: 400px; border-radius: 500px;}
+
+
+
+
+#game {background-image: url(image/gbg.png); justify-content: space-around; flex-wrap: wrap;}
+.gamelink {
+width: 20%; background: rgba(180, 170, 140, 0.5); padding: 25px 0px;
+border-radius: 100px 100px 30px 30px; box-shadow: 0px 0px 5px #000;
+display: flex; align-items: center; flex-direction: column;
+}
+.gtitle {color: #ffd; font-family: Lucida Sans; font-size: 25px;}
+.gbanner {width: 80%; border-radius: 20px; margin-top: 20px;}
+
+.gamelink:hover {background: rgba(180, 170, 140, 0.7);}
+.gamelink:hover .gtitle {color: #fff;}
+
+
+
+#contact {background-image: url(image/cbg.png); justify-content: center;} 
+#contactcon {
+width: 45%; height: 60%; border-radius: 10px;
+background: #ddd; margin-top: 100px;
+display: flex; align-items: center; justify-content: space-around;
+}
+#contactme {font-family: Lucida Sans, arial; font-size: 18px; font-weight: bold; color: #444; margin-bottom: 20px;}
+#contactimg {width: 30%;}
+#contactmsg {width: 40%;}
+
+.contactin {
+width: 100%; padding: 10px 10px 10px 40px; border-radius: 20px; background-color: #eee; border: none;
+font-family: arial; background-repeat: no-repeat; 
+}
+#contactname {background-image: url(image/name.png); background-size: auto 70%; background-position: 10px 50%;}
+#contactemail {background-image: url(image/email.png); background-size: auto 58%; background-position: 12px 50%;}
+#contactmessage {background-image: url(image/message.png); background-size: auto 22%; background-position: 10px 10px;}
+
+#contactsend {
+width: 100%; background: #83b8b1; border: none; padding: 10px; border-radius: 20px;
+font-family: arial; font-size: 16px; font-weight: bold; color: #ffd; cursor: pointer;
+}
+#contactsend:hover {background: #83b8c1;}
+.contactin:focus {outline: 1px solid #808080;}
+
+
+textarea {resize: none;}
+a:link {text-decoration: none;}
 
 </style>
 
@@ -48,31 +127,160 @@ border-radius: 500px;
 <body>
 
 
-<div id='header'>
-<img src="cars/logo.gif" id="logo">
-<a href='index.html'><div class='hdr'>Home</div></a>
-<a href='about.html'><div class='hdr'>About me</div></a>
-<a href='montyhall.html'><div class='hdr'>Monty Hall</div></a>
-<a href='tictactoe/tic.html'><div class='hdr'>Tic Tac Toe</div></a>
+<div id="header">
+	<a href=""><div id="logo">Tahjid Islam</div></a>
+	
+	<div id="links">
+		<div class="hdr" onclick="goSection(0)">Home</div>
+		<div class="hdr" onclick="goSection(1)">About me</div>
+		<div class="hdr" onclick="goSection(2)">Games</div>
+		<div class="hdr" onclick="goSection(3)">Contact</div>
+	</div>
+	
+	<!--
+	<a href=''><div class="hdrcon" id="hire">Hire Me!</div></a>
+	-->
 </div>
 
 
 
 
 
-<table id="con" cellpadding="50">
-<tr>
-<td><div id="mi"></div></td>
-<td><div id="mt">
-<div id="hello">Hello, I am</div>
-<div id="name">Md Tahjid Islam Samun</div>
-<div id="front">Front-end Developer</div>
-<div id="from">From Bangladesh</div>
+<div id="home" class="sections">
 
-</div></td>
-</tr>
-</table>
+	<img src="image/football.png" id="anim1">
+	
+	<div id="homecon">
+		<div id="hello">Hello, I am</div>
+		<div id="nam">Md Tahjid Islam Samun</div>
+		<div id="front">Front-end Developer</div>
+		<div id="from">From Bangladesh</div>
+	</div>
+</div>
+
+
+<div id="about" class="sections">
+
+	<img src="image/picb.jpg" id="aimage">
+	<div id="aboutcon">
+		My name is Md Tahjid Islam Samun. I'm a passionate and driven amateur front-end developer. Despite having no prior experience, I have developed a deep interest and love for the world of web development.
+		<br><br>
+		My journey in front-end development began with a simple curiosity about how websites were created. As I delved deeper into this fascinating world, I discovered my passion for designing and building visually appealing and user-friendly websites that offer an exceptional user experience.
+		<br><br>
+		I have been self-motivated and dedicated to learning the skills necessary to become a successful front-end developer. With my eagerness to learn and unwavering determination, I have quickly gained a solid foundation in HTML, CSS, and JavaScript.
+		<br><br>
+		In the future, I hope to gain more experience and expertise in front-end development and eventually transition into a career in this exciting field. 
+	</div>
+	
+</div>
+
+
+
+<div id="game" class="sections">
+
+	<a href="montyhall.html" target="_blank" class="gamelink">
+		<div class="gtitle font-effect-outline">Monty Hall</div>
+		<img src="image/monty.png" class="gbanner">
+	</a>
+	
+	<a href="tictactoe.html" target="_blank" class="gamelink">
+		<div class="gtitle font-effect-outline">Tic Tac Toe</div>
+		<img src="image/tic.png" class="gbanner">
+	</a>
+	
+</div>
+
+
+
+<div id="contact" class="sections">
+
+	<div id="contactcon">
+	
+		<img src="image/contact.png" id="contactimg">
+		
+		<form action="#contact" method="post" autocomplete="off" id="contactmsg">
+		
+			<div id="contactme">Contact Me</div>
+			
+			<input type="text" id="contactname" class="contactin" name="name" placeholder="Name" required><br><br>
+			<input type="email" id="contactemail" class="contactin" name="email" placeholder="Email" required><br><br>
+			<textarea class="contactin" id="contactmessage" name="message" rows="5" placeholder="Message" required></textarea><br><br>
+			<input type="submit" value="Send" id="contactsend">
+			
+		</form>
+	
+	</div>
+	
+</div>
+
+
+
+
+<script>
+
+section = 0;
+hdr = document.getElementsByClassName("hdr");
+sections = document.getElementsByClassName("sections");
+
+hdr[0].style.borderBottom = "2px solid #ffd";
+
+
+
+function goBorder (sec) {
+	hdr[section].style.borderBottom = "2px solid transparent";
+	section = sec;
+	hdr[section].style.borderBottom = "2px solid #ffd";
+}
+function goSection (sec) {
+	goBorder (sec);
+	sections[section].scrollIntoView();
+	if (section == 0) {
+		hello.style.display = "none";
+		setTimeout(helloAnimation, 1);
+		nam.style.display = "none";
+		setTimeout(nameAnimation, 1);
+		front.style.display = "none";
+		setTimeout(frontAnimation, 1);
+		from.style.display = "none";
+		setTimeout(fromAnimation, 1);
+	}
+}
+
+
+function helloAnimation () {
+	hello.style.display = "block";
+}
+function nameAnimation () {
+	nam.style.display = "block";
+}
+function frontAnimation () {
+	front.style.display = "block";
+}
+function fromAnimation () {
+	from.style.display = "block";
+}
+
+
+window.addEventListener("scroll", scrollNav);
+
+function scrollNav () {
+	//logo.innerHTML = window.pageYOffset;
+	if (window.pageYOffset < 400) goBorder (0);
+	else if (window.pageYOffset < 1100) goBorder (1);
+	else if (window.pageYOffset < 1800) goBorder (2);
+	else goBorder (3);
+}
+
+
+</script>
+
+
 
 </body>
 
 </html>
+
+
+
+
+
