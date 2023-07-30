@@ -72,8 +72,8 @@ width: 200px; overflow: hidden; white-space: nowrap; animation: showFrom 1s;
 
 
 #about {background-image: url(image/abg.png); justify-content: space-around;}
-#aboutcon {font-family: Lucida Sans; font-size: 18px; text-align: justify; width: 750px; color: #334;}
-#aimage {display: inline-block; height: 400px; width: 400px; border-radius: 500px;}
+#aboutcon {font-family: Lucida Sans; font-size: 18px; text-align: justify; width: 25%; color: #334;}
+#aimage {width: 25%; border-radius: 500px;}
 
 
 
@@ -121,6 +121,25 @@ font-family: arial; font-size: 16px; font-weight: bold; color: #ffd; cursor: poi
 textarea {resize: none;}
 a:link {text-decoration: none;}
 
+
+@media only screen and (orientation: Portrait) {
+#header {justify-content: center;}
+#logo, #contactimg {display: none;}
+#links {margin-right: 0px;}
+
+#homecon {width: 90%;}
+
+#about, #game {flex-direction: column; justify-content: center;}
+#aimage {display: block; height: 200px; width: 200px;}
+#aboutcon {width: 80%;}
+
+.gamelink {width: 50%;}
+
+#contactcon {width: 70%;}
+#contactmsg {width: 70%;}
+
+}
+
 </style>
 
 </head>
@@ -164,12 +183,6 @@ a:link {text-decoration: none;}
 	<img src="image/picb.jpg" id="aimage">
 	<div id="aboutcon">
 		My name is Md Tahjid Islam Samun. I'm a passionate and driven amateur front-end developer. Despite having no prior experience, I have developed a deep interest and love for the world of web development.
-		<br><br>
-		My journey in front-end development began with a simple curiosity about how websites were created. As I delved deeper into this fascinating world, I discovered my passion for designing and building visually appealing and user-friendly websites that offer an exceptional user experience.
-		<br><br>
-		I have been self-motivated and dedicated to learning the skills necessary to become a successful front-end developer. With my eagerness to learn and unwavering determination, I have quickly gained a solid foundation in HTML, CSS, and JavaScript.
-		<br><br>
-		In the future, I hope to gain more experience and expertise in front-end development and eventually transition into a career in this exciting field. 
 	</div>
 	
 </div>
@@ -264,6 +277,7 @@ function fromAnimation () {
 window.addEventListener("scroll", scrollNav);
 
 function scrollNav () {
+	//logo.innerHTML = window.pageYOffset;
 	if (window.pageYOffset < 400) goBorder (0);
 	else if (window.pageYOffset < 1100) goBorder (1);
 	else if (window.pageYOffset < 1800) goBorder (2);
