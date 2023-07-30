@@ -24,7 +24,7 @@ display: flex; align-items: center; justify-content: space-between;
 
 #links {margin-right: 30px;}
 .hdr {
-font-size: 16px; font-family: verdana; font-weight: bold; color: #ffd;
+font-size: 16px; font-family: verdana; font-weight: bold; color: #fff;
 margin: 0px 20px; padding: 5px; float: left; border-bottom: 2px solid transparent; cursor: pointer;
 }
 .hdr:active {color: #ddc;} 
@@ -33,13 +33,13 @@ margin: 0px 20px; padding: 5px; float: left; border-bottom: 2px solid transparen
 
 
 #home {background-image: url(image/hbg.png); justify-content: center;}
-#homecon {width: 30%; color: #334; z-index: 1; background: grey;}
+#homecon {width: 30%; color: #334; z-index: 1;}
 
 #hello {
 font-size: 20px; font-family: Lucida Console; margin-bottom: 10px; 
 width: 150px; overflow: hidden; white-space: nowrap; animation: showHello 1s;
 }
-#nam {background: green;
+#nam {
 font-size: 40px; font-family: Segoe UI, arial; margin-bottom: 10px;
 width: 420px; overflow: hidden; white-space: nowrap; animation: showName 1s;
 }
@@ -129,18 +129,18 @@ a:link {text-decoration: none;}
 #logo, #contactimg {display: none;}
 #links {margin-right: 0px; width: 100%; display: flex; justify-content: space-around;}
 
-#homecon {width: 60%;}
+#homecon {width: 70%;}
 
-#nam {font-size: 28px; width: 290px;}
-#front {font-size: 25px; width: 260px;}
+#nam {font-size: 25px; width: 260px;}
+#front {font-size: 20px; width: 210px;}
 
 @keyframes showName {
   0% {width: 0px;}
-  100% {width: 290px;}
+  100% {width: 260px;}
 }
 @keyframes showFront {
   0% {width: 0px;}
-  100% {width: 260px;}
+  100% {width: 210px;}
 }
 
 
@@ -250,14 +250,14 @@ section = 0;
 hdr = document.getElementsByClassName("hdr");
 sections = document.getElementsByClassName("sections");
 
-hdr[0].style.borderBottom = "2px solid #ffd";
+hdr[0].style.borderBottom = "2px solid #fff";
 
 
 
 function goBorder (sec) {
 	hdr[section].style.borderBottom = "2px solid transparent";
 	section = sec;
-	hdr[section].style.borderBottom = "2px solid #ffd";
+	hdr[section].style.borderBottom = "2px solid #fff";
 }
 function goSection (sec) {
 	goBorder (sec);
