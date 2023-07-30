@@ -33,13 +33,13 @@ margin: 0px 20px; padding: 5px; float: left; border-bottom: 2px solid transparen
 
 
 #home {background-image: url(image/hbg.png); justify-content: center;}
-#homecon {width: 30%; color: #334; z-index: 1;}
+#homecon {width: 30%; color: #334; z-index: 1; background: grey;}
 
 #hello {
 font-size: 20px; font-family: Lucida Console; margin-bottom: 10px; 
 width: 150px; overflow: hidden; white-space: nowrap; animation: showHello 1s;
 }
-#nam {
+#nam {background: green;
 font-size: 40px; font-family: Segoe UI, arial; margin-bottom: 10px;
 width: 420px; overflow: hidden; white-space: nowrap; animation: showName 1s;
 }
@@ -125,7 +125,7 @@ a:link {text-decoration: none;}
 
 @media only screen and (orientation: Portrait) {
 #header {justify-content: center;}
-.hdr {margin: 0px 0px;}
+.hdr {margin: 0px 0px; cursor: none;}
 #logo, #contactimg {display: none;}
 #links {margin-right: 0px; width: 100%; display: flex; justify-content: space-around;}
 
@@ -150,7 +150,7 @@ a:link {text-decoration: none;}
 
 .gamelink {width: 50%; margin: 40px 0px;}
 
-#contactcon {width: 70%; height: 50%; margin-top: 50px;}
+#contactcon {width: 70%; height: 50%;}
 #contactmsg {width: 80%;}
 #contactsend {color: #fff;}
 }
