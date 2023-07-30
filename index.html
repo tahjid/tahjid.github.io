@@ -71,9 +71,10 @@ width: 200px; overflow: hidden; white-space: nowrap; animation: showFrom 1s;
 
 
 
-#about {background-image: url(image/abg.png); justify-content: space-around;}
+
+#about {background-image: url(image/abg.png); justify-content: center;}
 #aboutcon {font-family: Lucida Sans; font-size: 18px; text-align: justify; width: 25%; color: #334;}
-#aimage {width: 25%; border-radius: 500px;}
+#aimage {width: 25%; border-radius: 500px; margin: 0px 100px 0px 0px;}
 
 
 
@@ -129,16 +130,28 @@ a:link {text-decoration: none;}
 #links {margin-right: 0px; width: 100%; display: flex; justify-content: space-around;}
 
 #homecon {width: 90%;}
-#nam {font-size: 30px;}
+
+#nam {font-size: 28px; width: 290px;}
+#front {font-size: 25px; width: 260px;}
+
+@keyframes showName {
+  0% {width: 0px;}
+  100% {width: 290px;}
+}
+@keyframes showFront {
+  0% {width: 0px;}
+  100% {width: 260px;}
+}
+
 
 #about, #game {flex-direction: column; justify-content: center;}
-#aimage {display: block; height: 200px; width: 200px;}
+#aimage {display: block; height: 200px; width: 200px; margin: 0px 0px 50px 0px;}
 #aboutcon {width: 80%;}
 
-.gamelink {width: 50%;}
+.gamelink {width: 50%; margin: 25px 0px;}
 
-#contactcon {width: 70%;}
-#contactmsg {width: 70%;}
+#contactcon {width: 70%; height: 50%;}
+#contactmsg {width: 80%;}
 #contactsend {color: #fff;}
 }
 
