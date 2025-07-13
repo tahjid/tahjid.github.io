@@ -93,10 +93,13 @@ display: flex; align-items: center; flex-direction: column;
 
 
 #python {background-image: url(image/pbg.png); justify-content: space-around; flex-wrap: wrap;}
-.ptitle {color: #ffd; font-family: Lucida Sans; font-size: 25px;}
-.pbanner {width: 80%; border-radius: 20px; margin-top: 20px;}
-#pycon {font-family: Lucida Sans; font-size: 18px; text-align: justify; color: #334; line-height: 1.6;}
-
+.pylink {
+	color: #044; font-family: Lucida Sans; font-weight: bold; font-size: 25px; 
+	background-color: rgba(104, 232, 255, 0.1); box-shadow: 0px 0px 5px #000;
+	padding: 5px 15px; border-radius: 50px;
+}
+.pycon {font-family: arial; font-size: 15px; text-align: justify; width: 75%; color: #334;}
+#pytable {margin-top: 100px;}
 	
 
 #contact {background-image: url(image/cbg.png); justify-content: center;} 
@@ -150,7 +153,7 @@ a:link {text-decoration: none;}
 }
 
 
-#about, #game {flex-direction: column; justify-content: center;}
+#about, #game, #python {flex-direction: column; justify-content: center;}
 #aimage {display: block; height: 200px; width: 200px; margin: 0px 0px 50px 0px;}
 #aboutcon {width: 80%;}
 
@@ -229,21 +232,32 @@ a:link {text-decoration: none;}
 	
 <div id="python" class="sections">
 
-	<div>
-		<div class="ptitle">Eye Guard App</div>
-		<img src="image/EyeGuardVideo.gif" class="pbanner">
-		<div id="pycon">
-			EyeGuard is a lightweight desktop app that helps users protect their eyes by reminding them to take regular screen breaks. It runs in the system tray, supports customizable alert sounds, auto-starts on boot, and saves user preferences. Designed for simplicity, productivity, and better screen-time habits.
-		</div>
-	</div>
+	<table cellspacing="20" id="pytable">
+		<tr>
+			<td align="center"><a href="https://github.com/tahjid/EyeGuardApp" target="_blank" class="pylink">Eye Guard App</a></td>
+			<td align="center"><a href="https://github.com/tahjid/CopyPasteApp" target="_blank" class="pylink">Copy Paste App</a></td>
+		</tr>
+		<tr>
+			<td align="center"><img src="image/EyeGuardVideo.gif" width="300"></td>
+			<td align="center"><img src="image/CopyPasteVideo.gif" width="400"></td>
+		</tr>
+		<tr>
+			<td align="center">
+				<div class="pycon">
+					EyeGuard is a lightweight desktop app that helps users protect their eyes by reminding them to take regular screen breaks. It runs in the system tray, supports customizable alert sounds, auto-starts on boot, and saves user preferences. Designed for simplicity, productivity, and better screen-time habits.
+				</div>
+			</td>
+			<td align="center">
+				<div class="pycon">
+					CopyPaste is a simple desktop utility that helps users quickly store and reuse frequently copied text snippets. Ideal for improving productivity during repetitive tasks, it offers a clean interface to manage, save, and paste content with ease.
+				</div>
+			</td>
+		</tr>
+	</table>
 
-	<div>
-		<div class="ptitle">Copy Paste App</div>
-		<img src="image/CopyPasteVideo.gif" class="pbanner">
-		<div id="pycon">
-			CopyPaste is a simple desktop utility that helps users quickly store and reuse frequently copied text snippets. Ideal for improving productivity during repetitive tasks, it offers a clean interface to manage, save, and paste content with ease.
-		</div>
-	</div>
+
+
+			
 </div>
 	
 	
@@ -324,7 +338,8 @@ function scrollNav () {
 	if (window.pageYOffset < 400) goBorder (0);
 	else if (window.pageYOffset < 1100) goBorder (1);
 	else if (window.pageYOffset < 1800) goBorder (2);
-	else goBorder (3);
+	else if (window.pageYOffset < 2500) goBorder (3);
+	else goBorder (4);
 }
 
 
@@ -335,8 +350,3 @@ function scrollNav () {
 </body>
 
 </html>
-
-
-
-
-
